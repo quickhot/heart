@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../css/css.css"/>
+<link href="../css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../js/jquery.form.min.js"></script>
+<script>
+$(function(){
+	/*超级管理员修改密码*/
+	$(".clickone").click(function(){
+		$('.onbody').show();
+		$('#superPassword').focus();
+		$('.body').css("background","#EEE","opacity","0.4","z-index","999999");
+		$('.md').css("opacity","0.4");
+		$('.hd').css("opacity","0.4");
+	});
+
+	/*权限分配框 修改*/
+	$('body').on("click",'.click_edit',function(){
+		var target = $(this).attr("id");
+		if(target != 'addAdmin'){
+			var adminId = $(this).prev().val();
+			$('#adminAccessId').val(adminId);
+			var adminName = $(this).parent().parent().prev().children('td').slice(1).text();
+			$('#tb').val(adminName);
+			$.ajax({
+				type:"post",
+				data:{adminId:adminId},
+				dataType: 'json',
+				url:"superAction.php?act=3",
+				success:function(data,status){
+					for(var i=0;i<data.length;i++){
+						$("#"+data[i]+"").prop("checked",true);
+					}
+				}
+			});
+		}
+		$(".onbody1").show(function(){});
+		/*滚动条*/
+		if(!$(".alert1").hasClass("mCustomScrollbar")){
+			$(".alert1").mCustomScrollbar({
+					autoHideScrollbar:true,
+					theme:"dark",
+			});
+		}
+		$(".alert1").mCustomScrollbar("scrollTo","top");
+		$('.body').css("background","#EEE","opacity","0.4","z-index","999999");
+		$('.md').css("opacity","0.4");
+		$('.hd').css("opacity","0.4");
+	});
+	
+	$(".guanbi").click(function(){
+		$('#superForm').resetForm();
+		$('#generalForm').resetForm();
+		$('#adminAccessId').removeAttr('value');
+		$(".onbody,.onbody1").hide();
+		$('.body').css("background","#FFF","opacity","1.0");
+		$('.md').css("opacity","1");
+		$('.hd').css("opacity","1");
+	});
+	
+	$('#superForm').submit(function() {
+		var pass = $('#superPassword').val();
+		if(pass != ''){
+			$('#superForm').ajaxSubmit({
+				url:"superAction.php?act=1",
+				type:"post",
+				datatype: "json",
+				success:function(data,status){
+					if(data.success){
+						alert('修改成功');
+						$(".guanbi").click();
+					}else{
+						alert('修改失败');
+					}
+				}
+			});
+		}else{
+			alert('密码不能为空');
+			$('#superPassword').focus();
+		}
+		return false;
+	});
+	
+	$('#generalForm').submit(function() {
+		var adminAccessId = $('#adminAccessId').val();
+		var adminCount = $('#tb').val();
+		if(adminCount != ''){
+			var adminPass = $('#tb_pass').val();
+			if(adminAccessId != '' || (adminAccessId == '' && adminPass != '')){
+				
+				$('#generalForm').ajaxSubmit({
+					url:"superAction.php?act=2",
+					type:"post",
+					datatype: "json",
+					success:function(data,status){
+						//alert(data.success);
+						if(data.success == 1){
+							alert('成功!');
+							$(".guanbi").click();
+							if(data.adminId){
+								$('#addAdmin').parent().before(
+										'<li>'+
+										'<div class="admin">'+
+											'<table style="width: 160px; height: 120px; padding: 8px;" border="0">'+
+												'<tr>'+
+													'<td width="103" align="center"><img src="../images/no-avatar.png" width="83" height="83" /></td>'+
+													'<td width="47" align="center">'+data.adminName+'</td>'+
+												'</tr>'+
+												'<tr>'+
+													'<td colspan="2" align="center">'+
+													'<input type="hidden" value="'+data.adminId+'" />'+
+													'<input type="button" class="btn click_edit" value="修改" />'+
+													'<input type="button" class="btn delBtn" value="删除" />'+
+													'</td>'+
+												'</tr>'+
+											'</table>'+
+										'</div>'+
+									'</li>');
+							}
+						}else if(data.success == 2){
+							alert('已存在账号,操作失败');
+						}else{
+							alert('操作失败');
+						}
+					}
+				});
+				
+			}else{
+				alert('密码不能为空');
+			}
+		}else{
+			alert('账号不能为空');
+		}
+		return false;
+	});
+	
+	$('body').on("click",'.delBtn',function(){
+		var adminId = $(this).prev().prev().val();
+		$.post( "superAction.php?act=4", {adminId:adminId}, function(data,status){
+			if(data){
+				alert('删除成功');
+			}else{
+				alert('删除失败');
+			}
+		}, 'json') ;
+		$(this).parents('li').remove();
+	});
+});
+
+</script>
+<title>无标题文档</title>
+</head>
+<body class="body">
+<div class="onbody">
+        <div class="alert">
+        <form id="superForm">
+            <table width="100%" height="100%" border="0" align="center" style="margin-top:20px;">
+              <tr>
+                <td height="30" align="right">新密码:</td>
+                <td height="30"><input type="password" name="superPassword" id="superPassword" /></td>
+              </tr>
+              <tr align="center">
+                <td height="50" colspan="2"><input type="submit" class="btn baocun" value="保存" />&nbsp;&nbsp;<input type="button" class="btn guanbi" value="关闭" /></td>
+              </tr>
+            </table>
+        </form>
+        </div>
+    </div>
+    <div class="onbody1">
+            <div class="alert3">
+            <form id="generalForm">
+            	<div class="userinfo">
+                <table width="480" border="0" align="center" >
+                <input type="hidden" name="adminAccessId" id="adminAccessId" />
+                  <tr >
+                    <td style="border-bottom:1px solid #CCC; font-size:12px" height="30" align="left">
+                      账号:
+                      <input type="text" id="tb" name="adminCount"/>
+                      密码:
+                      <input type="password" id="tb_pass" name="adminPassword" />(如果为空则不修改)
+                    </td>
+                      <td><img src="../images/no.png" style="width:15px; height:15px;position: relative;top:-5px; cursor:pointer" class="guanbi" /></td>
+                  </tr>
+                  </table>
+                  </div>
+                  <div class="alert1">
+                  <table width="480" border="0" align="center" id="checkTable" style="">
+                  <{foreach from=$menuInfo key=parName item=detail}>
+                  <tr>
+                    <td height="30" align="left" style="color:#4fc4c4"><{$parName}></td>
+                  </tr>
+                  <tr>
+                    <td height="30" align="left" style="font-size:12px">
+                    <{foreach from=$detail key=id item=name}>
+                    <label for="<{$id}>"><input type="checkbox" id="<{$id}>" name="access[]" value="<{$id}>" /><{$name}></label>
+                    <{/foreach}>
+                    </td>
+                  </tr>
+                  <{/foreach}>
+                  <tr>
+                    <td height="55" valign="middle" style="border-top:1px solid #CCC"><input type="submit" class="btn baocun" id="subBaocun" value="保存" />&nbsp;&nbsp;&nbsp;<input type="button" class="guanbi btn" value="关闭" /></td>
+                  </tr>
+                </table>
+                </div>
+          	</form>
+            </div>
+        </div>
+<div class="hd">
+    	<div class="header">
+        	<h1 class="hdtitle">置业小秘书管理系统</h1>
+            <div class="toolbar">
+            	<ul>
+                	<li><img src="../images/avatar.png" align="absbottom" /></li>
+                	<li><{$adminName}></li>
+                	<li>|</li>
+                    <li><a href="../logout.php">退出</a></li>
+                    <li>|</li>
+                    <li><a href="#">帮助</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="md">
+    	<div class="content-title">
+            <h2>艾维诺森林已有管理员</h2>
+        </div>
+        <div class="content">
+        	<ul class="super_ul">
+        	<{foreach from=$allAdminInfo item=single}>
+        	  <li>
+                <div class="admin">
+                	<table style="width:160px; height:120px; padding:8px;" border="0">
+                      <tr>
+                        <td width="103" align="center"><img src="../images/no-avatar.png" width="83" height="83" /></td>
+                        <td width="47" align="center"><{$single.adminName}></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" align="center">
+                        <input type="hidden" value="<{$single.id}>"/>
+                        <{if $single.level == 0}>
+                        <input type="button" class="btn click_edit" value="修改"/>
+                        <input type="button" class="btn delBtn" value="删除"/>
+                        <{else}>
+                        <input type="button" class="btn clickone" value="修改"/>
+                        <{/if}>
+                        </td>
+                      </tr>
+                    </table>
+                </div>
+                </li>
+               <{/foreach}>
+                <li><a href="javascript:;" class="click_edit" id="addAdmin"><img src="../images/add.png" class="add" /></a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

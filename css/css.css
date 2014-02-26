@@ -1,0 +1,293 @@
+/* CSS Document */
+*{font-family:"微软雅黑";word-break:break-all;}
+body{ margin:0; padding:0; color:#313131;}
+ul{ list-style:none; margin:0; padding:0;}
+a{ text-decoration:none; display:block; height:100%; width:100%;}
+img{ border:0;}
+/*公共*/
+.md{ min-height:500px;}
+button{cursor:pointer;}
+.toolbar{ font-size:12px}
+.position{ font-size:12px; margin-left:80px; padding:10px;}
+.input{ color:#CCC;}
+.add_btn{ background:#FFF; border:0; cursor:pointer;
+-moz-border-radius:4px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:4px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+
+}
+/*登录页*/
+#forget{width: 57px;height: 20px;float: left;}
+.tips{ font-size:12px; color:#999; padding-left:30px;}
+#msg2{width:250px; display:none; color:red; margin-left:55px;}
+.login{ width:415px; height:362px; margin:0 auto; margin-top:10%;}
+.txt-1{ width: 215px;height: 30px; border:2px solid #c2c2c2; font-size:17px; padding-left:23px; color:#999;
+-moz-border-radius:7px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:7px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:7px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:7px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+}
+.ico-user{ background-image:url(../images/ico-user.png); background-repeat:no-repeat; background-position:6px 9px;}
+.ico-pwd{ background-image:url(../images/ico-pwd.png); background-repeat:no-repeat; background-position:6px 9px;}
+.txt{ width:242px; height:40px; position:relative; top:20px;margin:20px auto; }
+.txt span a{ font-size:12px; color:#999; text-decoration:none; line-height:35px;}
+.login-title{
+	text-align: center;
+	margin-top: 20px;
+	font-size: 14px;
+	font-family: "新宋体";
+	color: #313131;
+}
+.login-logo{ background:url(../images/login-logo.png) no-repeat; border:4px solid #FFF; margin:0 auto;
+width:86px; height:86px;
+-moz-border-radius:50%;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:50%;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:50%;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:50%;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+}
+.submit{-moz-border-radius:5px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:5px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:5px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:5px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+background:#4fc4c4;
+border:none;
+color:#FFF;
+width:60px; height:30px;
+float:right;
+}
+/*超级管理员页*/
+.hd{width:100%;border-bottom:2px solid #4fc4c4;}
+.header{ height:135px; width:90%;margin:0 auto; color:#797778}
+.foot{ text-align:center; color:#999; font-size:12px; height:50px; padding-top:30px; width:100%; float:left; margin:0 auto}
+.toolbar{ float:right;width:230px;height: 48px;margin: 43px 10px 0 auto;}
+h1.hdtitle{ margin:0; padding:0; float:left;margin-top: 43px; margin-left:10px; font-weight:normal;}
+.toolbar a{ color:#797778;}
+.toolbar ul li { float:left; display:inline;line-height: 40px; margin-left:2px; margin-right:2px;}
+.content{width:960px; margin:0 auto; min-height:500px;}
+.content-title{ width:960px; height:100px; margin:0 auto; text-align:center}
+.super_ul li{ float:left; margin-top:20px; margin-left:20px;}
+.add{ margin:30px;}
+.admin{ background:url(../images/kuang.png) no-repeat; height:130px; width:168px;}
+.btn{ 
+ height:21px; cursor:pointer;
+-moz-border-radius:4px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:4px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+background:#4fc4c4;
+border:none;font-size: 10px;
+line-height:20px;
+color:#FFF;}
+.content table{ font-size:12px; color:#666;}
+h2,h4,h5{ font-weight:normal;}
+.close{ float:right; width:35px; height:20px;}
+.baocun,.guanbi{ width:60px; height:24px;}
+/*登陆首页*/
+.wx{ width:345px; height:155px; background:#8fc24c;}
+.tj{width:345px; height:155px; background:#ff9935}
+.tz{width:345px; height:155px; background:#7499e3;}
+.hdgl{width:345px; height:155px; background:#40c2c2;}
+
+.yz{ width:165px; height:155px; background:#f6716f}
+.fk{ width:165px; height:155px; background:#8fc24c}
+.yg{ width:165px; height:155px; background:#75a7e5}
+.zc{ width:165px; height:155px; background:#cd60b3}
+
+.xs{ width:165px; height:155px; background:#f56e54}
+.ls{ width:165px; height:155px; background:#256fb9}
+.gc{ width:165px; height:155px; background:#fd86ae}
+.xm{ width:165px; height:155px; background:#bb976b}
+
+.weibo{ width:165px; height:155px; background:#3fbea0}
+.calendar{ width:165px; height:155px; background:#f87055}
+
+.box_shadow{-webkit-box-shadow:2px 2px 2px #CCC;-moz-box-shadow:2px 2px 2px #CCC;}
+.box_shadow table{font-size:16px; color:#FFF}
+.a12312{
+transition:opacity 1s;
+-moz-transition:opacity 1s; /* Firefox 4 */
+-webkit-transition:opacity 1s; /* Safari and Chrome */
+-o-transition:opacity 1s; /* Opera */}
+.a12312:hover{ opacity:0.6;}
+
+.left{float:left}
+.right{ float:right;}
+.top{ margin-top:20px}
+.icon1{width:109px; height:109px;}
+.icon2{width:61px; height:61px; font-size:52px;}
+.icon-wx{background:url(../images/icon.png) -18px 0 no-repeat;}
+.icon-tj{background:url(../images/icon.png) -236px 0 no-repeat;}
+.icon-tz{background:url(../images/icon.png) -18px -168px no-repeat;}
+.icon-hd{background:url(../images/icon.png) -236px -168px no-repeat;}
+.icon-yz{background:url(../images/icon.png) -480px -303px no-repeat;}
+.icon-fk{background:url(../images/icon.png) -593px -303px no-repeat;}
+.icon-yg{background:url(../images/icon.png) -690px -303px no-repeat;}
+.icon-zc{background:url(../images/icon.png) -787px -303px no-repeat;}
+.icon-xs{background:url(../images/icon.png) 0px -303px no-repeat;}
+.icon-ls{background:url(../images/icon.png) -88px -303px no-repeat;}
+.icon-gc{background:url(../images/icon.png) -177px -303px no-repeat;}
+.icon-xm{background:url(../images/icon.png) -270px -303px no-repeat;}
+.icon-weibo{background:url(../images/icon.png) -371px -303px no-repeat;}
+.grey{ background:#c9c9c9;}
+
+/*员工数据*/
+.nav{height: 26px;float:left;position:absolute;top: 109px;}
+.nav_tab .navcheck{ background-color:#4fc4c4;}
+.nav_tab li{ float:left; margin-left:5px; background-color:#d2d2d2; width:77px; height:26px; text-align:center; line-height:27px; font-size:12px;
+-moz-border-radius:6px 6px 0px 0;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:6px 6px 0px 0;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:6px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:6px 6px 0px 0;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+}
+.nav_tab li a{ color:#FFF;}
+.tbdata{border:1px solid #c9c9c9; width:100%; background:#4fc4c4;
+-moz-border-radius:16px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:16px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:16px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:16px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+border-collapse: separate;
+}
+.tbdata .thead th{ color:#4fc4c4; height:45px; border-bottom:1px solid #e5e5e5; font-size:14px; font-weight:normal !important;}
+.tbdata tfoot,.tbdata tfoot tr{color:#FFF; height:40px;}
+.tbdata .tbody{ background:#FFF;}
+.tbdata .tbody .tr1 td{ height:40px; border-right:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; padding-left:10px;}
+#page{ background:#FFF; width:100%; height:40px;
+-moz-border-radius:0 0 16px 16px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:0 0 16px 16px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:0 0 16px 16px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:0 0 16px 16px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+border-right:1px solid #c9c9c9;
+border:0;
+}
+#page ul li{ float:left;display:inline;line-height: 40px; margin-left:2px; margin-right:2px;}
+.noborder{ border-right:0 !important;}
+#page ul{ height:40px; margin: 0 20px 0 35%; float: left;}
+#page ul li{ background:#4fc4c4; min-width:23px; min-height:23px; _width:23px; _height:23px; text-align:center; margin-top:10px; line-height:23px;
+-moz-border-radius:2px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:2px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:2px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:2px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+}
+#page a{ color:#FFF;}
+.active{ background:#d2d2d2 !important;}
+#page span{ color:#333; line-height:43px; margin-right:10px;}
+.alert{
+	width:auto;
+	padding:20px;
+	height:auto;
+	position:absolute;
+	top:40%;
+	left:50%;
+	border:1px solid #c9c9c9;
+	background:#FFF;
+	margin-left:-170px;
+	margin-top:-110px;
+	display:block;
+	-moz-border-radius:4px;/*仅Firefox支持，实现圆角效果*/
+	-webkit-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+	-khtml-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+	border-radius:4px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+}
+.userinfo{max-height:450px;width:auto; max-width:552px; padding:10px; height:auto;position:absolute; top:34%; left:50%; border:1px solid #c9c9c9; background:#FFF; margin-left:-260px; margin-top:-155px; float:left}
+.alert1{ max-height:450px;width:auto; max-width:552px; padding:10px; height:auto;position:absolute; top:34%; left:50%; border:1px solid #c9c9c9; background:#FFF; margin-left:-260px; margin-top:-110px; display:block;
+-moz-border-radius:4px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:4px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+}
+.alert_img{width:auto; padding:20px; height:auto;position:absolute; top:40%; left:50%; border:1px solid #c9c9c9; background:#FFF; margin-left:-170px; margin-top:-110px; display:block;
+-moz-border-radius:14px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:14px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:14px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:14px;}
+.onbody{z-index:9999;width:100%; overflow:hidden; height:100%; position:absolute; text-align:center; display:none;}
+.onbody1{z-index:9999;width:100%; overflow:hidden; height:100%; position:absolute; text-align:center; display:none;}
+/*数据导入*/
+.daoru{ background:#4fc4c4; border:0; width:128px; height:47px; color:#FFF; font-size:20px; text-align:center; line-height:47px;
+-moz-border-radius:8px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:8px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:8px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:8px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+}
+/*业主数据*/
+.intable{
+border:1px solid #c9c9c9; width:100%;
+-moz-border-radius:8px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:8px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:8px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:8px;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+}
+.fwxx_td{ color:#4fc4c4}
+.fwxx_ul input{ border:0; border-bottom:1px solid #999;}
+.fwxx_ul li{ line-height:37px; padding-left:10px;}
+.fwxx_ul li span{ color:#666;}
+.fwxx_td .fwxx_ul li input { text-align:right;}
+.yzxx_kuang{ width:390px; border:1px solid #c9c9c9; margin:10px auto;
+-moz-border-radius:8px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:8px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:8px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:8px;/*仅Opera，Safari,Chrome支持，实现圆角效*/
+}
+.yzxx_td{ padding:3px;overflow-y: auto;}
+.hidden{ display:none;}
+
+/*楼书制作-区域*/
+.phone_btn,.phone_btn1{ color:#FFF; background:#d2d2d2; border:0;
+-moz-border-radius:4px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:4px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:4px;/*仅Opera，Safari,Chrome支持，实现圆角效*/
+cursor:pointer;
+}
+#phone{ padding:0 10px;}
+#iframe{ margin-top:235px; min-height:267px;  width:100%;}
+#frame_con{padding:10px; min-height:200px;_height:267px; background:url(../images/touming.png); color:#FFF;}
+#frame_movie{ max-width:68.49mm; min-width:49.86mm;background:url(../images/touming.png); padding-left:5px; padding-bottom:20px;}
+.phone_sel{ background:#4fc4c4;}
+.phone5{ width:49.86mm; height:84mm; border:1px solid #000;}
+.phone4{ width:50mm; height:70mm; border:1px solid #000;}
+.phone_xiaomi3{ width:63mm; height:112mm; border:1px solid #000;}
+.phone_note3{ width:68.49mm; height:121.76mm; border:1px solid #000;}
+.movie,.zan{ width:300px; height:23px; border:1px solid #c9c9c9;}
+.tbquyu{
+-moz-border-radius:0;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:0;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:16px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:0;/*仅Opera，Safari,Chrome支持，实现圆角效果*/
+border:1px solid #b0b0b0;
+}
+.tbquyu .tbody .tr1 td,.tbquyu thead .tr1 td{ height:25px; border-right:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5;}
+.quyu_input{ border:0; font-size:14px; color:#000; width:100%}
+.quyu_ul li{ border-bottom:1px solid #FFF; margin:10px 0; padding-bottom:5px; max-width:320px; padding: 5px 0 5px 0; color:#FFF}
+.quyu_ul li td{ color:#FFF;}
+.album li{ float:left; margin-left:10px; margin-top:10px;}
+.album li img{ width:100px; height:100px; border:1px solid #ddd; padding:2px;}
+/*通知管理*/
+.tongzhi{ width:265px; height:188px; border:1px solid #78b7af;
+-moz-border-radius:5px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:5px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:5px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:5px;/*仅Opera，Safari,Chrome支持，实现圆角效*/
+}
+.fengmian{ padding:14px;}
+.fmtitle{ padding-top:5px;}
+.status{ float:right;}
+.status a{ color:#FFF; background:#45c6cc; padding:3px 0; padding-left:6px; font-size:12px;
+-moz-border-radius:5px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:5px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:5px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:5px;/*仅Opera，Safari,Chrome支持，实现圆角效*/
+}
+.tongzhi_li{ width:265px; height:188px;}
+.addtongzhi{ width:65px; height:65px; margin: 67px auto;}
+.jiaobiao{position: relative;top: -150px;left: -10px;background: #00baf6;padding:3px;width:40px; color:#FFF; font-size:12px}
+.bfbfbf{position: relative;top: -150px;left: -10px;background:#bfbfbf;padding:3px;width:40px; color:#FFF; font-size:12px}
+.ope{ text-align:center; padding-top:10px; width:265px;}
+.tongzhi1{ width:260px; height:145px;}
+.no_bg{ background:none; border:1px solid #78b7af;
+-moz-border-radius:5px;/*仅Firefox支持，实现圆角效果*/
+-webkit-border-radius:5px;/*仅Safari,Chrome支持，实现圆角效果*/
+-khtml-border-radius:5px;/*仅Safari,Chrome支持，实现圆角效果*/
+border-radius:5px;/*仅Opera，Safari,Chrome支持，实现圆角效*/
+}

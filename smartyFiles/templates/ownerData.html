@@ -1,0 +1,538 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../css/css.css"/>
+<link href="../css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="../js/footable.js?v=2-0-1" type="text/javascript"></script>
+<script src="../js/footable.filter.js?v=2-0-1" type="text/javascript"></script>
+<script src="../js/footable.paginate.js?v=2-0-1" type="text/javascript"></script>
+
+<title>无标题文档</title>
+</head>
+
+<body class="body">
+	<!--房屋信息弹窗-->
+	<div class="onbody">
+        <div class="alert">
+            <table width="100%" height="100%" border="0" align="center" style="margin:20px 0;">
+              <tr>
+                <td height="30" align="right">园名:</td>
+                <td height="30" align="left"><input id="addGardenName" type="text" /></td>
+              </tr>
+              <tr>
+                <td height="30" align="right">门牌号:</td>
+                <td height="30" align="left">
+                <input id="addBuildingNo" type="text" size="2" maxlength="2"  style="text-align:right"/>号楼
+                <input id="addDoorNo" id="" type="text" size="3" maxlength="3" style="text-align:right"/>门
+                <input id="addFloorNo" type="text" size="2" maxlength="2" style="text-align:right"/>层
+                <input id="addRoomNo" type="text" size="4" maxlength="4"  style="text-align:right"/>室</td>
+              </tr>
+              <tr>
+                <td height="30" align="right">房型:</td>
+                <td height="30" align="left">
+                <input id="addLounge" type="text" size="1" maxlength="1"  style="text-align:right"/>室
+                <input id="addHall" type="text" size="1" maxlength="1" style="text-align:right"/>厅
+				<input id="addKitchen" type="text" size="1" maxlength="1" style="text-align:right"/>厨
+                <input id="addBathroom" type="text" size="1" maxlength="1" style="text-align:right"/>卫
+                </td>
+              </tr>
+              <tr>
+                <td height="30" align="right">面积:</td>
+                <td height="30" align="left"><input id="addAreaNo" type="text" size="5" maxlength="6" style="text-align:right"/>m²</td>
+              </tr>
+              <tr>
+                <td height="30" align="right">姓名:</td>
+                <td height="30" align="left"><input id="addAlias" type="text" size="8" maxlength="20" style="text-align:right"/>
+                手机:
+                <input id="addMobileNo" type="text" size="13" maxlength="11"  style="text-align:right"/></td>
+              </tr>
+              <tr>
+                <td height="30" colspan="2" align="center"><input type="button" class="baocun addRoom" value="保存" />
+                &nbsp;&nbsp;
+                <input type="button" class="guanbi" value="关闭" /></td>
+              </tr>
+            </table>
+        </div>
+    </div>
+    <!--业主信息弹窗-->
+    <div class="onbody1">
+        <div class="alert">
+
+<table width="100%" height="100%" border="0" align="center" style="margin:20px 0;">
+              <tr>
+                <td height="30" align="right"><input type="hidden" id="addUserRoomId"  />姓名:</td>
+                <td height="30" align="left"><input id="addUserAlias" type="text" size="6" maxlength="4" /> 证件号:<input id="addUserIDCard" type="text" size="25" maxlength="18" /></td>
+              </tr>
+              <tr>
+                <td height="30" align="right">性别:</td>
+                <td height="30" align="left"><input id="addUserGender" type="text" size="6" maxlength="1" /> 手机号:<input id="addUserMobileNo" type="text" size="25" maxlength="11" /></td>
+              </tr>
+              <tr>
+                <td height="30" align="right">生日:</td>
+                <td height="30" align="left">
+                <input id="addUserBirthday" type="text" size="13" maxlength="11" />座机号:<input id="addUserTele" type="text" size="13" maxlength="11" />
+                </td>
+              </tr>
+              <tr>
+                <td height="30" align="right">联系地址:</td>
+                <td height="30" align="left"><input id="addUserAddr" type="text" size="40" /></td>
+              </tr>
+              <tr>
+                <td height="30" align="right">邮编:</td>
+                <td height="30" align="left"><input id="addUserZipCode" type="text" size="8" maxlength="7" /></td>
+              </tr>
+              <tr>
+                <td height="30" colspan="2" align="center" valign="bottom"><input type="submit" class="baocun addUser" value="保存" />
+                &nbsp;&nbsp;
+                <input type="button" class="guanbi" value="关闭" /></td>
+              </tr>
+            </table>
+
+        </div>
+    </div>
+    
+	<div class="hd">
+    	<div class="header">
+        	<h1 class="hdtitle">置业小秘书管理系统</h1>
+            <div class="nav">
+            	<ul class="nav_tab">
+                	<li><a href="/index.php">返回首页</a></li>
+                    <li class="navcheck"><a href="#">基本信息</a></li>
+                    <li><a href="#">数据模块</a></li>
+                </ul>
+            </div>
+            <div class="toolbar">
+            	<ul>
+                	<li><img src="../images/avatar.png" align="absbottom" /></li>
+                	<li><{$adminName}></li>
+                	<li>|</li>
+                    <li><a href="../logout.php">退出</a></li>
+                    <li>|</li>
+                    <li><a href="#">帮助</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="md">
+    	<div class="position">首页->业主数据->基本信息</div>
+        <div class="content">
+        <div class="loadpage">加载中...</div>
+        	<table cellpadding="0" cellspacing="0" class="tbdata" data-filter="#filter" data-filter-text-only="true" data-page-size="10">
+            <thead class="thead">
+              <tr>
+                <th align="left" style="color:#FFF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜索 : <input id="filter" type="text" class="input" /><span style="font-size:12px">(您可以输入姓名,手机等)</span></th>
+                <th colspan="2" align="center"><input id="" type="button" class="clickone add_btn" value="添加房屋" /></th>
+              </tr>
+            </thead>
+            <tbody class="tbody">
+            <{section name=room loop=$roomList}>
+	
+              <tr class="tr1">
+                <td colspan="3"><img src="../images/jiahao.png" class="jiajian"> <{$roomList[room].roomName}>
+                <input type="button" class="btn del" style="float:right;margin-right:20px;" value="删除" onclick="return confirm('确认删除?');">
+                <input type="button" class="btn edi" style="float:right; margin-right:20px;" value="修改">
+                <div class="asdf" style="display:none">
+                <table border="0" cellpadding="0" cellspacing="0" class="intable" style="width: 90%;margin: 10px auto;">
+                      <thead>
+                          <tr class="tr1">
+                            <td width="26%" align="center"><font color="#FF0000" style="font-size: 14px;">房屋信息</font></td>
+                            <td width="22%" align="center"><font color="#FF0000" style="font-size: 14px;">缴费信息</font></td>
+                            <td width="52%" align="center"><font color="#FF0000" style="font-size: 14px;">业主信息&nbsp;<img src="../images/add.png"  style="cursor:pointer" align="absmiddle" width="20" height="20"  class="add_scyz" id="<{$roomList[room].roomId}>"/></font></td>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="tr1 roomAndUser">
+                            <td valign="top" class="fwxx_td">
+                            	<!--房屋信息-->
+                            	<ul class="fwxx_ul">
+                                	<li>园名:<span class="hidden"><{$roomList[room].gardenName}></span><input id="" type="text" value="<{$roomList[room].gardenName}>"  style="text-align:center" readonly="readonly"/></li>
+                                	<li>
+                                        门牌号:
+                                        <input id="" type="text" size="2" maxlength="3"  value="<{$roomList[room].buildingNo}>" readonly="readonly"/>号楼
+                                        <input id="" type="text" size="2" maxlength="3"  value="<{$roomList[room].doorNo}>" readonly="readonly"/>门
+                                        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input id="" type="text" size="2" maxlength="2"  value="<{$roomList[room].floorNo}>" readonly="readonly"/>层
+                                        <input id="" type="text" size="4" maxlength="4"  value="<{$roomList[room].roomNo}>" readonly="readonly"/>室
+                                        <input type="hidden" class="roomId" value="<{$roomList[room].roomId}>" />
+                                        <input type="hidden" class="roomExtId" value="<{$roomList[room].roomExtInfoId}>" />
+                                    </li>
+                                	<li>房型:
+                                        <input class="lounge" type="text" size="1" maxlength="1" value="<{$roomList[room].lounge}>"/>室
+                                        <input class="hall" type="text" size="1" maxlength="1" value="<{$roomList[room].hall}>"/>厅
+                                        <input class="kitchen" type="text" size="1" maxlength="1" value="<{$roomList[room].kitchen}>"/>厨
+                                        <input class="bathroom" type="text" size="1" maxlength="1" value="<{$roomList[room].bathroom}>"/>卫
+                                    </li>
+                                	<li>面积:
+                                	  <input class="areaNo" type="text" size="5" maxlength="6" value="<{$roomList[room].areaNo}>"/>m²
+                                	</li>
+                                </ul>
+                            </td>
+                            <td valign="top" class="fwxx_td">
+                            <!--缴费信息-->
+                            <div class="cont1" style="height:230px;">
+                            	<ul class="fwxx_ul">
+                                	<li>购买时间: <input class="dealDate" type="text" size="13" maxlength="11" value="<{$roomList[room].dealDate}>"/></li>
+                                    <li>签约时间: <input class="signDate" type="text" size="13" maxlength="11" value="<{$roomList[room].signDate}>"/></li>
+                                    <li>首付金额: <input class="downPayment" type="text" size="13" maxlength="11" value="<{$roomList[room].downPayment}>"/></li>
+                                    <li>尾款金额: <input class="finalPayment" type="text" size="13" maxlength="11" value="<{$roomList[room].finalPayment}>"/></li>
+                                    <li>契税金额: <input class="deedTax" type="text" size="13" maxlength="11" value="<{$roomList[room].deedTax}>"/></li>
+                                </ul>
+                            </div>
+                            </td>
+                            <td valign="top" rowspan="2" class="yzxx_td">
+                          	<!--业主信息-->
+                            	<div class="cont1"  id="userOfRoom_<{$roomList[room].roomId}>" style="height:230px; overflow-y:auto;">
+                                	<{section name=userList loop=$roomList[room].users}>
+                                	<div class="yzxx_kuang" >
+                                      <ul class="fwxx_ul">
+                                      <input class="userId" type="hidden" value="<{$roomList[room].users[userList].id}>"/>
+                                      <input class="mobileId" type="hidden" value="<{$roomList[room].users[userList].mobileId}>"/>
+                                        <li><span class="hidden"><{$roomList[room].users[userList].alias}></span>姓名:<input class="alias" type="text" size="6" maxlength="4"  value="<{$roomList[room].users[userList].alias}>"/> <span class="hidden"><{$roomList[room].users[userList].IDCardNo}></span>证件号:<input class="IDCardNo" type="text" size="25" maxlength="18" value="<{$roomList[room].users[userList].IDCardNo}>"/></li>
+                                        <li><span class="hidden"><{$roomList[room].users[userList].gender}></span>性别:<input class="gender" type="text" size="6" maxlength="1" value="<{$roomList[room].users[userList].gender}>"/> <span class="hidden"><{$roomList[room].users[userList].mobileNo}></span>手机号:<input class="mobileNo" type="text" size="25" maxlength="11" value="<{$roomList[room].users[userList].mobileNo}>"/></li>
+                                        <li><span class="hidden"><{$roomList[room].users[userList].birthday}></span>生日:<input class="birthday" type="text" size="13" maxlength="11" value="<{$roomList[room].users[userList].birthday}>"/><span class="hidden"><{$roomList[room].users[userList].tele}></span>座机号:<input class="tele" type="text" size="13" maxlength="11" value="<{$roomList[room].users[userList].tele}>"/></li>
+                                        <li><span class="hidden"><{$roomList[room].users[userList].address}></span>联系地址:<input class="address" type="text" size="40" value="<{$roomList[room].users[userList].address}>"/></li>
+                                        <li><span class="hidden"><{$roomList[room].users[userList].zipCode}></span>邮编:<input class="zipCode" type="text" size="8" maxlength="7" value="<{$roomList[room].users[userList].zipCode}>"/>
+                                        <a href="javascript:;" class="re_scyz" style="margin-left:5px; float:right; width:23px; margin-top:15px;"><img src="../images/shanchu.png" /></a>
+                                        <a href="javascript:;" class="saveUser" style="width:15px; float:right; margin-top:15px;"><img src="../images/baocunnew.png" /></a>
+                                        </li>
+                                      </ul>
+                                	</div>
+                                	<{/section}>
+                            	</div>
+                            </td>
+
+                        </tr>
+
+                          <tr>
+                            <td align="center" colspan="2"><input type="button" class="btn saveRoom" value="保存" />
+                            <input type="button" class="btn cannel" value="取消" /></td>
+                        </tr>
+
+                      </tbody>
+ 
+                  </table>
+
+                </div>
+				</td>
+              </tr>
+<{/section}>
+            </tbody>
+            <tfoot>
+				<tr>
+					<td colspan="3">
+                    <div id="page" class="pagination pagination-centered"><span>共5条</span></div>
+                    </td>
+				</tr>
+            </tfoot>
+            </table>
+      </div>
+</div>
+    <!--foot-->
+    <div class="foot">Copyright &copy; 2014 XI CHUAN BIGIT Inc. All Rights Reserved.熙川数字 版权所有</div>
+    
+<!-- <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>  -->
+<script type="text/javascript">
+$(function(){
+	
+	$(".loadpage").hide();
+	/*展开业主数据*/
+	$('.edi').click(function(){
+		//把加号变为减号
+		$(this).prevAll(".jiajian").attr("src","../images/jianhao.png");
+		//隐藏修改按钮
+		$(this).hide();
+		//隐藏删除按钮
+		$(this).prev().hide();
+		$(this).next(".asdf").css("display","block").parents(".tr1").attr("height","380px;");
+		/*滚动条*/
+	/*	if(!$(this).next(".asdf").find(".cont1").hasClass("mCustomScrollbar")){
+		 	$(this).next(".asdf").find(".cont1").mCustomScrollbar({scrollButtons:{enable:true},theme:"dark"});
+		}*/
+	});
+	/*关闭业主数据*/
+	$('.cannel').click(function(){
+		$(this).parents(".asdf").prevAll(".jiajian").attr("src","../images/jiahao.png");
+		$(this).parents(".asdf").css("display","none").parents(".tr1").attr("height","40px;");
+		$(this).parents(".asdf").prev().show();
+		$(this).parents(".asdf").prev().prev().show();
+		
+	});
+	/*删除业主信息*/
+	$(document).on("click",'.re_scyz',function(){
+		//alert("come");
+		var thisKuang = $(this).parent().parent().parent();
+		if(confirm('确认删除?')){
+			if(true){
+				var userId = $(this).parent().parent().find('.userId').val();
+				$.ajax({
+					type:"POST",
+					url:"delUser.php",
+					data:{
+						userId:userId
+					},
+					dataType:"json",
+					success:function(retData,textStatus){
+						if(retData.success){
+							thisKuang.remove();
+							alert("删除成功");
+						} else {
+							alert("删除失败请重试");
+						}
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				});
+			}else{
+				alert("用户取消删除");
+			}
+		}
+	});
+	
+	/*加减号展开关闭业主数据*/
+	$('.jiajian').click(function(){
+		if($(this).attr("src") == "../images/jiahao.png"){
+			$(this).attr("src","../images/jianhao.png");
+			$(this).nextAll('.edi,.del').hide();
+			$(this).nextAll(".asdf").css("display","block").parents(".tr1").attr("height","380px;");
+			/*if(!$(this).nextAll(".asdf").find(".cont1").hasClass("mCustomScrollbar")){
+				$(this).nextAll(".asdf").find(".cont1").mCustomScrollbar({scrollButtons:{enable:true},theme:"dark"});
+			}*/
+			return;
+		}
+		if($(this).attr("src") == "../images/jianhao.png"){
+			$(this).attr("src","../images/jiahao.png");
+			$(this).nextAll('.edi,.del').show();
+			$(this).nextAll(".asdf").css("display","none").parents(".tr1").attr("height","40px;");
+			return;
+		}
+	});
+	/*鼠标放在表格上变色*/
+	$(".tbdata .tbody .tr1").mouseover(function(){
+		$(this).css("background","#f4f8f9");
+	}).mouseout(function(){
+		$(this).css("background","none");
+	});
+	
+	/*筛选*/
+	$('.tbdata').footable().bind('footable_filtering', function (e) {
+		var selected = $('.filter-status').find(':selected').text();
+		if (selected && selected.length > 0) {
+			e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+			e.clear = !e.filter;
+		}
+	});
+	/*弹出添加修改房屋信息框*/
+	$(".clickone").click(function(){
+		$(".onbody").show();
+		$('.body').css("background","#EEE","opacity","0.4","z-index","999999");
+		$('.tbdata').css("opacity","0.4");
+	});
+	$(".guanbi").click(function(){
+		$(".onbody").hide();
+		$('.body').css("background","#FFF","opacity","1.0");
+		$('.tbdata').css("opacity","1");
+	});
+	/*弹出添加业主信息框*/
+	$(".add_scyz").click(function(){
+		//alert("comon");
+ 		var roomId=$(this).attr("id");
+ 		//alert(roomId);
+		$("#addUserRoomId").val(roomId);
+		$(".onbody1").show();
+		$('.body').css("background","#EEE","opacity","0.4","z-index","999999");
+		$('.tbdata').css("opacity","0.4");
+	});
+	$(".guanbi").click(function(){
+		$(".onbody1").hide();
+		$('.body').css("background","#FFF","opacity","1.0");
+		$('.tbdata').css("opacity","1");
+	});
+	//保存房屋修改
+	$(".saveRoom").click(
+			function(){
+				var roomId=$(this).parent().parent().prev(".roomAndUser").find('.roomId').val();
+				var dealDate = $(this).parent().parent().prev(".roomAndUser").find('.dealDate').val();
+				var signDate = $(this).parent().parent().prev(".roomAndUser").find('.signDate').val();
+				var downPayment = $(this).parent().parent().prev(".roomAndUser").find('.downPayment').val();
+				var finalPayment = $(this).parent().parent().prev(".roomAndUser").find('.finalPayment').val();
+				var deedTax = $(this).parent().parent().prev(".roomAndUser").find('.deedTax').val();
+				var areaNo = $(this).parent().parent().prev(".roomAndUser").find('.areaNo').val();
+				$.ajax({
+					type:"POST",
+					url:"saveRoomInfo.php",
+					data:{
+						roomId:roomId,
+						dealDate:dealDate,
+						signDate:signDate,
+						downPayment:downPayment,
+						finalPayment:finalPayment,
+						deedTax:deedTax,
+						areaNo:areaNo
+					},
+					dataType:"json",
+					success:function(retData,textStatus){
+						//alert(textStatus);
+						retData.success?alert("修改成功"):alert("修改失败请重试");
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				})
+			});
+	//保存用户修改
+	$(document).on("click",".saveUser",
+			function(){
+				var alias=$(this).parent().parent().find('.alias').val();
+				var userId=$(this).parent().parent().find('.userId').val();
+				var IDCardNo=$(this).parent().parent().find('.IDCardNo').val();
+				var mobileId=$(this).parent().parent().find('.mobileId').val();
+				var gender=$(this).parent().parent().find('.gender').val();
+				var mobileNo=$(this).parent().parent().find('.mobileNo').val();
+				var birthday=$(this).parent().parent().find('.birthday').val();
+				var tele=$(this).parent().parent().find('.tele').val();
+				var address=$(this).parent().parent().find('.address').val();
+				var zipCode=$(this).parent().parent().find('.zipCode').val();
+				$.ajax({
+					type:"POST",
+					url:"saveUserInfo.php",
+					data:{
+						alias   :alias,
+						userId  :userId,
+						IDCardNo:IDCardNo,
+						mobileId:mobileId,
+						gender  :gender,
+						mobileNo:mobileNo,
+						birthday:birthday,
+						tele    :tele,
+						address :address,
+						zipCode :zipCode
+					},
+					dataType:"json",
+					success:function(retData,textStatus){
+						//alert(textStatus);
+						retData.success?alert("修改成功"):alert(retData.errInfo);
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				})
+			});
+	//添加房屋
+	$(".addRoom").click(
+			function(){
+				var alias=$("#addAlias").val();
+				var gardenName=$('#addGardenName').val();
+				var buildingNo=$('#addBuildingNo').val();
+				var doorNo=$('#addDoorNo').val();
+				var floorNo=$('#addFloorNo').val();
+				var roomNo=$('#addRoomNo').val();
+				var lounge=$('#addLounge').val();
+				var hall=$('#addHall').val();
+				var kitchen=$('#addKitchen').val();
+				var bathroom=$('#addBathroom').val();
+				var areaNo=$('#addAreaNo').val();
+				var mobileNo=$('#addMobileNo').val();
+
+				$.ajax({
+					type:"POST",
+					url:"addRoomInfo.php",
+					data:{
+						alias     :alias,
+						gardenName:gardenName,
+						buildingNo:buildingNo,
+						doorNo    :doorNo,
+						floorNo   :floorNo,
+						roomNo    :roomNo,
+						lounge    :lounge,
+						hall      :hall,
+						kitchen   :kitchen,
+						bathroom  :bathroom,
+						areaNo    :areaNo,
+						mobileNo  :mobileNo
+					},
+					dataType:"json",
+					success:function(retData,textStatus){
+						//alert(textStatus);
+						retData.success?alert("添加房屋成功"):alert(retData.errInfo+"\n请检查房屋是否已经存在。");
+						location.reload();
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				})
+			});
+
+	//添加用户
+	
+	$(".addUser").click(
+			function(){
+				var roomId=$("#addUserRoomId").val();
+				var alias=$("#addUserAlias").val();
+				var IDCard=$('#addUserIDCard').val();
+				var gender=$('#addUserGender').val();
+				var mobileNo=$('#addUserMobileNo').val();
+				var birthday=$('#addUserBirthday').val();
+				var tele=$('#addUserTele').val();
+				var addr=$('#addUserAddr').val();
+				var zipCode=$('#addUserZipCode').val();
+				
+				var yzxx_kuang =				
+				'<li><span class="hidden">'+alias+'</span>姓名:<input class="alias" type="text" size="6" maxlength="4"  value="'+alias+'"/> <span class="hidden">'+IDCard+'</span>证件号:<input class="IDCardNo" type="text" size="25" maxlength="18" value="'+IDCard+'"/></li>'+
+				'<li><span class="hidden">'+gender+'</span>性别:<input class="gender" type="text" size="6" maxlength="1" value="'+gender+'"/> <span class="hidden">'+mobileNo+'</span>手机号:<input class="mobileNo" type="text" size="25" maxlength="11" value="'+mobileNo+'"/></li>'+
+				'<li><span class="hidden">'+birthday+'</span>生日:<input class="birthday" type="text" size="13" maxlength="11" value="'+birthday+'"/><span class="hidden">'+tele+'</span>座机号:<input class="tele" type="text" size="13" maxlength="11" value="'+tele+'"/></li>'+
+				'<li><span class="hidden">'+addr+'</span>联系地址:<input class="address" type="text" size="40" value="'+addr+'"/></li>'+
+				'<li><span class="hidden">'+zipCode+'</span>邮编:<input class="zipCode" type="text" size="8" maxlength="7" value="'+zipCode+'"/>'+
+				'<a href="javascript:;" class="re_scyz" style="margin-left:5px; float:right; width:23px; margin-top:15px;"><img src="../images/shanchu.png"/></a>'+
+				'<a href="javascript:;" class="saveUser" style="width:15px; float:right; margin-top:15px;"><img src="../images/baocunnew.png" /></a>'+
+				'</li>'+
+				'</ul>'+
+				'</div>';
+
+				$.ajax({
+					type:"POST",
+					url:"addUserInfo.php",
+					data:{
+						roomId:roomId,
+						alias:alias,
+						IDCard:IDCard,
+						gender:gender,
+						mobileNo:mobileNo,
+						birthday:birthday,
+						tele:tele,
+						addr:addr,
+						zipCode:zipCode 
+					},
+					dataType:"json",
+					success:function(retData,textStatus){
+						//alert(textStatus);
+						if(retData.success){
+							alert("添加用户成功");
+							 yzxx_kuang='<div class="yzxx_kuang">'+
+							 '<ul class="fwxx_ul">'+
+							 '<input class="userId" type="hidden" value="'+retData.userId+'"/>'+
+							 '<input class="mobileId" type="hidden" value="'+retData.mobileId+'"/>'+yzxx_kuang;
+							 $("#userOfRoom_"+roomId).append(yzxx_kuang);
+							 $(".onbody1").hide();
+							 $('.body').css("background","#FFF","opacity","1.0");
+							 $('.tbdata').css("opacity","1");
+						} else {
+							alert(retData.errInfo+"\n请检查该用户是否已经存在（相同手机号码）。");
+						}
+					},
+					complete:function(){
+
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				});
+				
+			});
+
+});
+
+</script>
+</body>
+</html>

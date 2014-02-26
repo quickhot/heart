@@ -1,0 +1,177 @@
+<?php
+
+namespace DataControl;
+
+use DataControl\Connector\DataConnector;
+
+class Users extends DataConnector {
+
+	/**
+	 * 用户登录
+	 * @param unknown $loginName
+	 * @param unknown $loginPass
+	 * @return Ambigous <string, unknown>
+	 */
+	public function userLogin($loginName,$loginPass) {
+		$retData = array();
+		$qryUserInfo = "SELECT * FROM userInfo WHERE loginName='$loginName' AND loginPass=password('$loginPass')";
+		if($resUserInfo = mysql_query($qryUserInfo,$this->link_identifier)) {
+			$rowUserInfo = mysql_fetch_assoc($resUserInfo);
+			$userId = $rowUserInfo['id'];
+			if ($userId) {
+				//登录成功
+				$retData['success']=1;
+				$retData['userDetail']=$rowUserInfo;
+			} else {
+				//用户或密码不正确
+				$retData['success']=0;
+				$retData['errNo']=1;
+				$retData['errInfo']=$this->errorInfo['1'];
+			}
+		} else {
+			//查询失败
+			$retData['success']=0;
+			$retData['errNo']=3;
+			$retData['errInfo']=$this->errorInfo['3'];
+		}
+		return $this->makeOutPut($retData);
+	}
+
+	/**
+	 *获取排序后的用户列表。
+	 */
+	public function getRecommendUsersByCity($city,$size=7,$page=1) {
+		$retData = array();
+		$start = ($page-1)*$size;
+		$qryRecom = "SELECT * FROM userInfo WHERE city='$city' ORDER BY score DESC LIMIT $start, $size";
+		//echo $qryRecom;
+		if($resRecom = mysql_query($qryRecom,$this->link_identifier)){
+			while ($rowRecom=mysql_fetch_array($resRecom,MYSQL_ASSOC)) {
+				$userId = $rowRecom['id']; //获取用户id
+				$userQuestions = $this->getQuestionsByUserId($userId);//获取该用户的问题们
+				$firstQuestion = $userQuestions['questionList'][0]['question'];//获取该用户的第一个问题。
+				if (!$firstQuestion) {
+					$firstQuestion=$this->errorInfo['2'];
+				}
+				$rowRecom['firstQuestion']=$firstQuestion; 
+				$retData['userList'][]=$rowRecom;
+			} 
+			$retData['success']=1;
+		} else {
+			//查询失败
+			$retData['success']=0;
+			$retData['errNo']=3;
+			$retData['errInfo']=$this->errorInfo['3'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	//获取用户的问题
+	public function getQuestionsByUserId($userId) {
+		$retData = array();
+		$qryQuestions = "SELECT * FROM v_userAnswer WHERE userId=$userId";
+		if($resQuestions = mysql_query($qryQuestions)) {
+			$retData['success']=1;
+			while ($rowQuestions=mysql_fetch_array($resQuestions,MYSQL_ASSOC)){
+				$retData['questionList'][]=$rowQuestions;
+			}
+		} else {
+			//查询失败
+			$retData['success']=0;
+			$retData['errNo']=3;
+			$retData['errInfo']=$this->errorInfo['3'];
+		}
+		return $this->makeOutPut($retData); 
+	}
+	
+	public function checkAnswer($userId,$questionId,$answer) {
+		$retData = array();
+		$qryAnswer = "SELECT count(*) FROM v_userAnswer WHERE userId=$userId AND questionId=$questionId AND answerNo='$answer'";
+		if($resAnswer = mysql_query($qryAnswer)) {
+			$retData['success']=1;
+			$rowAnswer = mysql_fetch_row($resAnswer);
+			if ($rowAnswer[0]) {
+				$retData['answer']=true;
+			} else $retData['answer']=false;
+		} else {
+			//查询失败
+			$retData['success']=0;
+			$retData['errNo']=3;
+			$retData['errInfo']=$this->errorInfo['3'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	public function addFriend($userId,$friendUserId) {
+		$retData=array();
+		$qryAdd = "INSERT IGNORE INTO friends(userId,friendId) VALUES($userId,$friendUserId)";
+		//echo $qryAdd;
+		if(($resAdd = mysql_query($qryAdd))!==false) {
+			$retData['success']=1;
+		} else {
+			//查询失败
+			$retData['success']=0;
+			$retData['errNo']=7;
+			$retData['errInfo']=$this->errorInfo['7'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	public function getFriendsByUserId($userId)
+	{
+		$retData= array();
+		$qryFriends = "SELECT * FROM v_friendsList WHERE userId=$userId";
+		//echo $qryFriends;
+		if ($resFriends=mysql_query($qryFriends)) {
+			$retData['success']=1;
+			while ($rowFriends = mysql_fetch_array($resFriends,MYSQL_ASSOC)) {
+				$retData['friendList'][]=$rowFriends;
+			}
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=8;
+			$retData['errInfo']=$this->errorInfo['8'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	public function getComersByUserId($userId)
+	{
+		$retData= array();
+		$qryFriends = "SELECT * FROM v_comeUser WHERE myId=$userId";
+		//echo $qryFriends;
+		if ($resFriends=mysql_query($qryFriends)) {
+			$retData['success']=1;
+			while ($rowFriends = mysql_fetch_array($resFriends,MYSQL_ASSOC)) {
+				$retData['comerList'][]=$rowFriends;
+			}
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=9;
+			$retData['errInfo']=$this->errorInfo['9'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	public function getReacherByUserId($userId)
+	{
+		$retData= array();
+		$qryFriends = "SELECT * FROM v_reachUser WHERE myId=$userId";
+		//echo $qryFriends;
+		if ($resFriends=mysql_query($qryFriends)) {
+			$retData['success']=1;
+			while ($rowFriends = mysql_fetch_array($resFriends,MYSQL_ASSOC)) {
+				$retData['reacherList'][]=$rowFriends;
+			}
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=10;
+			$retData['errInfo']=$this->errorInfo['10'];
+		}
+		return $this->makeOutPut($retData);
+	}
+
+	
+}
+
+?>

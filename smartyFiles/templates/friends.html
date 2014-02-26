@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Friends</title>
+</head>
+<body>
+
+<div id="friends">
+<p>好友列表：</p>
+<{section name=friend loop=$friends}>
+<span><img src='<{$friends[friend].picture}>' /><a><{$friends[friend].nickName}></a></span>
+<{/section}>
+</div>
+<div id="reachers">
+<p>我感兴趣的：</p>
+<{section name=reacher loop=$reachers}>
+<span><img src='<{$reachers[reacher].picture}>' /><a><{$reachers[reacher].nickName}></a><a>  提醒  </a><a>  删除  </a><br></span>
+<{/section}>
+</div>
+<div id="comers">
+<p>新来的朋友：</p>
+<{section name=comer loop=$comers}>
+<span><img src='<{$comers[comer].picture}>' /><a><{$comers[comer].nickName}></a><a>添加</a><a>拒绝</a></span>
+<{/section}>
+</div>
+
+</body>
+</html>

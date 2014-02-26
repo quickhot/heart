@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/css.css"/>
+<script src="js/jquery.min.js"></script>
+<script>
+$(function(){
+	$('.rili').click(function(){
+		$('.rili1').fadeToggle();
+		$('.body').css("background","#CCC","opacity","0.6","z-index","999999");
+	});
+	$(".rili1").click(function(){
+		$(this).fadeOut(function(){
+			$('.body').css("background","#FFF","opacity","1.0");
+		});
+	});
+	var myDate = new Date();
+	var date = myDate.getDate();
+    $(".nowDate").html(date);
+	var week = ['日','一','二','三','四','五','六']; 
+    var day = ' 星期' + week[myDate.getDay()]; 
+    $("#nowDay").html(day);
+})
+</script>
+<title>无标题文档</title>
+</head>
+<body class="body">
+    	<div class="rili1" style=" z-index:1;width:100%; overflow:hidden; height:100%; position:absolute; display:none; text-align:center; padding-top:16%;">
+                <iframe src="rili/index.html" style="overflow:hidden" scrolling="no" width="664" height="395" frameborder="0"></iframe>
+        </div>
+	<div class="hd" style="border:none;">
+    	<div class="header"><img src="images/login-logo.png" width="70" height="70" style="float:left;margin-top: 40px; font-weight:normal;" />
+    <h1 class="hdtitle"><{$estateName}><br><span style="font-size:14px; display:block; width:100%; text-align:center;margin-top: 5px;">置业小秘书管理系统</span></h1>
+            <div class="toolbar">
+            	<ul>
+                	<li><img src="images/avatar.png" align="absbottom" /></li>
+                	<li><{$adminName}></li>
+                	<li>|</li>
+                    <li><a href="logout.php">退出</a></li>
+                    <li>|</li>
+                    <li><a href="#">帮助</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="md">
+        <div class="content" style="width:1100px;">
+            <!--左菜单-->
+<table width="100%" border="0" cellpadding="5" style="width:720px; float:left">
+                  <tr>
+                    <td>
+                    <a href="#">
+                    <div class="wx box_shadow a12312 <{if not $adminRights[140]['adminId']}> grey <{/if}>">
+                        <table width="100%" border="0" height="100%">
+                          <tr>
+                            <td align="right"><{$adminRights[140]['menuName']}></td>
+                            <td align="center"><div class="icon1 icon-wx"></div></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                    <td>
+                    <a href="#">
+                    <div class="tj box_shadow a12312 <{if not $adminRights[70]['adminId']}> grey <{/if}>">
+                        <table width="100%" border="0" height="100%">
+                          <tr>
+                            <td align="right"><{$adminRights[70]['menuName']}></td>
+                            <td align="center"><div class="icon1 icon-tj"></div></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    <a href="#">
+                    <div class="tz box_shadow a12312 <{if not $adminRights[30]['adminId']}> grey <{/if}>">
+                        <table width="100%" border="0" height="100%">
+                          <tr>
+                            <td align="right"><{$adminRights[30]['menuName']}></td>
+                            <td align="center"><div class="icon1 icon-tz"></div></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                    <td>
+                    <a href="#">
+                    <div class="hdgl box_shadow a12312 <{if not $adminRights[120]['adminId']}> grey <{/if}>">
+                        <table width="100%" border="0" height="100%">
+                          <tr>
+                            <td align="right"><{$adminRights[120]['menuName']}></td>
+                            <td align="center"><div class="icon1 icon-hd"></div></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    <a href="#">
+                    <div class="xs box_shadow a12312 left top <{if not $adminRights[150]['adminId']}> grey <{/if}>">
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 icon-xs"></div></td>
+                          </tr>
+                          <tr>
+                            <td align="center"><{$adminRights[150]['menuName']}></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    <a href="#">
+                    <div class="ls box_shadow a12312 right top <{if not $adminRights[20]['adminId']}> grey <{/if}>">
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 icon-ls"></div></td>
+                          </tr>
+                          <tr>
+                            <td align="center"><{$adminRights[20]['menuName']}></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                    <td>
+                    <a href="#">
+                    <div class="gc box_shadow a12312 left top <{if not $adminRights[110]['adminId']}> grey <{/if}>">
+                        
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 icon-gc"></div></td>
+                          </tr>
+                          <tr>
+                            <td align="center"><{$adminRights[110]['menuName']}></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    <a href="#">
+                    <div class="xm box_shadow a12312 right top <{if not $adminRights[80]['adminId']}> grey <{/if}>">
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 icon-xm"></div></td>
+                          </tr>
+                          <tr>
+                            <td align="center"><{$adminRights[80]['menuName']}></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                  </tr>
+            </table>
+            <!--右菜单-->
+            <table border="0" cellpadding="5" style="float:right;">
+                  <tr>
+                    <td>
+                    <a <{if $adminRights[1]['adminId']}>  href="owner/ownerData.php" <{/if}>>
+                    <div class="yz box_shadow a12312 <{if not $adminRights[1]['adminId']}> grey <{/if}>">
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 icon-yz"></div></td>
+                          </tr>
+                          <tr>
+                            <td align="center"><{$adminRights[1]['menuName']}></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                    <td>
+                    <a <{if $adminRights[5]['adminId']}>  href="vistor/" <{/if}>>
+                        <div class="fk box_shadow a12312 <{if not $adminRights[5]['adminId']}> grey <{/if}>">
+                            <table width="100%" height="100%" border="0">
+                              <tr>
+                                <td align="center" valign="bottom"><div class="icon2 icon-fk"></div></td>
+                              </tr>
+                              <tr>
+                                <td align="center"><{$adminRights[5]['menuName']}></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    <a <{if $adminRights[10]['adminId']}>  href="staff/" <{/if}>>
+                    <div class="yg box_shadow a12312 <{if not $adminRights[10]['adminId']}> grey <{/if}>">
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 icon-yg"></div></td>
+                          </tr>
+                          <tr>
+                            <td align="center"><{$adminRights[10]['menuName']}></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                    <td>
+                    <a <{if $adminRights[15]['adminId']}>  href="register/" <{/if}>>
+                    <div class="zc box_shadow a12312 <{if not $adminRights[15]['adminId']}> grey <{/if}>">
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 icon-zc"></div></td>
+                          </tr>
+                          <tr>
+                            <td align="center"><{$adminRights[15]['menuName']}></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    <a href="#">
+                    <div class="weibo box_shadow a12312 top <{if not $adminRights[100]['adminId']}> grey <{/if}>">
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 icon-weibo"></div></td>
+                          </tr>
+                          <tr>
+                            <td align="center"><{$adminRights[100]['menuName']}></td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                    <td>
+                    <a href="#" class="rili">
+                    <div class="calendar box_shadow a12312 top">
+                        <table width="100%" height="100%" border="0">
+                          <tr>
+                            <td align="center" valign="bottom"><div class="icon2 nowDate">16</div></td>
+                          </tr>
+                          <tr>
+                            <td align="center" id="nowDay">Monday</td>
+                          </tr>
+                        </table>
+                    </div>
+                    </a>
+                    </td>
+                  </tr>
+            </table>
+      </div>
+    </div>
+    <!--foot-->
+    <div class="foot">Copyright &copy; 2014 XI CHUAN BIGIT Inc. All Rights Reserved.熙川数字 版权所有</div>
+</body>
+</html>
