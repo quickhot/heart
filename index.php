@@ -6,6 +6,7 @@ include_once './libs/DataControl/Users.class.php';
 include_once './libs/sessions/LHCSession.class.php';
 
 session_start();
+
 $userId = $_SESSION['userId'];
 if ($userId) { //登录成功，且具有userId
 	$userDetail = $_SESSION['userDetail'];
