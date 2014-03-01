@@ -70,7 +70,7 @@ class Users extends DataConnector {
 	public function getQuestionsByUserId($userId) {
 		$retData = array();
 		$qryQuestions = "SELECT * FROM v_userAnswer WHERE userId=$userId";
-		if($resQuestions = mysql_query($qryQuestions)) {
+		if($resQuestions = mysql_query($qryQuestions,$this->link_identifier)) {
 			$retData['success']=1;
 			while ($rowQuestions=mysql_fetch_array($resQuestions,MYSQL_ASSOC)){
 				$retData['questionList'][]=$rowQuestions;
@@ -87,7 +87,7 @@ class Users extends DataConnector {
 	public function checkAnswer($userId,$questionId,$answer) {
 		$retData = array();
 		$qryAnswer = "SELECT count(*) FROM v_userAnswer WHERE userId=$userId AND questionId=$questionId AND answerNo='$answer'";
-		if($resAnswer = mysql_query($qryAnswer)) {
+		if($resAnswer = mysql_query($qryAnswer,$this->link_identifier)) {
 			$retData['success']=1;
 			$rowAnswer = mysql_fetch_row($resAnswer);
 			if ($rowAnswer[0]) {
@@ -106,7 +106,7 @@ class Users extends DataConnector {
 		$retData=array();
 		$qryAdd = "INSERT IGNORE INTO friends(userId,friendId) VALUES($userId,$friendUserId)";
 		//echo $qryAdd;
-		if(($resAdd = mysql_query($qryAdd))!==false) {
+		if(($resAdd = mysql_query($qryAdd,$this->link_identifier))!==false) {
 			$retData['success']=1;
 		} else {
 			//查询失败
@@ -122,7 +122,7 @@ class Users extends DataConnector {
 		$retData= array();
 		$qryFriends = "SELECT * FROM v_friendsList WHERE userId=$userId";
 		//echo $qryFriends;
-		if ($resFriends=mysql_query($qryFriends)) {
+		if ($resFriends=mysql_query($qryFriends,$this->link_identifier)) {
 			$retData['success']=1;
 			while ($rowFriends = mysql_fetch_array($resFriends,MYSQL_ASSOC)) {
 				$retData['friendList'][]=$rowFriends;
@@ -140,7 +140,7 @@ class Users extends DataConnector {
 		$retData= array();
 		$qryFriends = "SELECT * FROM v_comeUser WHERE myId=$userId";
 		//echo $qryFriends;
-		if ($resFriends=mysql_query($qryFriends)) {
+		if ($resFriends=mysql_query($qryFriends,$this->link_identifier)) {
 			$retData['success']=1;
 			while ($rowFriends = mysql_fetch_array($resFriends,MYSQL_ASSOC)) {
 				$retData['comerList'][]=$rowFriends;
@@ -158,7 +158,7 @@ class Users extends DataConnector {
 		$retData= array();
 		$qryFriends = "SELECT * FROM v_reachUser WHERE myId=$userId";
 		//echo $qryFriends;
-		if ($resFriends=mysql_query($qryFriends)) {
+		if ($resFriends=mysql_query($qryFriends,$this->link_identifier)) {
 			$retData['success']=1;
 			while ($rowFriends = mysql_fetch_array($resFriends,MYSQL_ASSOC)) {
 				$retData['reacherList'][]=$rowFriends;
@@ -170,8 +170,114 @@ class Users extends DataConnector {
 		}
 		return $this->makeOutPut($retData);
 	}
-
 	
+	public function notifyUser($userId,$doUserId)
+	{
+		$retData=array();
+		$userDetail = $this->getUserDetailById($userId);
+		
+		if($userDetail['success']){
+			$userName = $userDetail['userDetail']['nickName'];
+			$title = '提醒您添加友好';
+			$content = $userName.'来到您的心堡，希望和您做个好朋友，赶快添加他吧';
+			$retData = $this->sendMessage($title, $content, $doUserId);
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=$userDetail['errNo'];
+			$retData['errInfo']=$userDetail['errInfo'];
+		}
+		return $this->makeOutPut($retData);
+	}
+
+	public function getUserDetailById($userId){
+		$retData = array();
+		$qryUserDetail = "SELECT * FROM userInfo WHERE id=$userId";
+		if ($resUserDetail=mysql_query($qryUserDetail,$this->link_identifier)) {
+			$retData['success']=1;
+			$rowUserDetail=mysql_fetch_assoc($resUserDetail);
+			$retData['userDetail']=$rowUserDetail;
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=11;
+			$retData['errInfo']=$this->errorInfo['11'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	public function delReacher($userId,$doUserId)
+	{
+		$retData = array();
+		$qryDeleteReacher = "DELETE FROM friends WHERE userId=$userId AND friendId=$doUserId";
+		if (mysql_query($qryDeleteReacher,$this->link_identifier)) {
+			$retData['success']=1;
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=13;
+			$retData['errInfo']=$this->errorInfo['13'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	public function addComer($userId,$doUserId)
+	{
+		$retData = array();
+		$qryComer = "SELECT COUNT(*) FROM friends WHERE userId=$doUserId AND friendId=$userId";
+		if($resComer = mysql_query($qryComer,$this->link_identifier)){
+			$rowComer = mysql_fetch_row($resComer);
+			if ($rowComer[0]) {
+				$retData = $this->addFriend($userId,$doUserId);
+				// $qryAddComer = "INSERT INTO friends(userId,friendId) VALUES($userId,$doUserId)";
+				// if (mysql_query($qryAddComer,$this->link_identifier)) {
+					// $retData['success']=1;
+				// } else {
+					// $retData['success']=0;
+					// $retData['errNo']=7;
+					// $retData['errInfo']=$this->errorInfo['7'];
+				// }
+			} else {
+				$retData['success']=0;
+				$retData['errNo']=14;
+				$retData['errInfo']=$this->errorInfo['14'];
+			}
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=3;
+			$retData['errInfo']=$this->errorInfo['3'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	public function sendMessage($title,$content,$userId)
+	{
+		$retData = array();
+		$addMessage = "INSERT INTO messages(title,content,userId,sendTime) VALUES('$title','$content',$userId,now());";
+		if (mysql_query($addMessage,$this->link_identifier)) {
+			$retData['success']=1;
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=12;
+			$retData['errInfo']=$this->errInfo['12'];
+		}
+		return $this->makeOutPut($retData);
+	}
+	
+	public function sendRefuseMessage($userId,$doUserId)
+	{
+		$retData=array();
+		$userDetail = $this->getUserDetailById($userId);
+		
+		if($userDetail['success']){
+			$userName = $userDetail['userDetail']['nickName'];
+			$title = '添加友好被拒绝';
+			$content = $userName.'拒绝了您进入心堡，继续努力哦';
+			$retData = $this->sendMessage($title, $content, $doUserId);
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=$userDetail['errNo'];
+			$retData['errInfo']=$userDetail['errInfo'];
+		}
+		return $this->makeOutPut($retData);
+	}
 }
 
 ?>

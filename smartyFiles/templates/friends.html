@@ -2,10 +2,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-control" content="no-cache">
+
 <title>Friends</title>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 </head>
 <body>
-
 <div id="friends">
 <p>好友列表：</p>
 <{section name=friend loop=$friends}>
@@ -15,15 +17,46 @@
 <div id="reachers">
 <p>我感兴趣的：</p>
 <{section name=reacher loop=$reachers}>
-<span><img src='<{$reachers[reacher].picture}>' /><a><{$reachers[reacher].nickName}></a><a>  提醒  </a><a>  删除  </a><br></span>
+<span><img src='<{$reachers[reacher].picture}>' /><a><{$reachers[reacher].nickName}></a>
+	<a href="javascript:void(0);" onclick="javascript:doAction(<{$reachers[reacher].reachId}>,'notify');">--提醒|</a>
+	<a href="javascript:void(0);" onclick="javascript:doAction(<{$reachers[reacher].reachId}>,'delete');">删除</a><br></span>
 <{/section}>
 </div>
 <div id="comers">
 <p>新来的朋友：</p>
 <{section name=comer loop=$comers}>
-<span><img src='<{$comers[comer].picture}>' /><a><{$comers[comer].nickName}></a><a>添加</a><a>拒绝</a></span>
+<span><img src='<{$comers[comer].picture}>' /><a><{$comers[comer].nickName}></a>
+	<a href="javascript:void(0);" onclick="javascript:doAction(<{$comers[comer].comeUserId}>,'add');">--添加|</a>
+	<a href="javascript:void(0);" onclick="javascript:doAction(<{$comers[comer].comeUserId}>,'refuse');">拒绝</a></span>
 <{/section}>
 </div>
-
+<script type="text/javascript">
+function doAction(userId,action){
+	//alert(notiUserId);
+	$.ajax({
+			type:"POST",
+			url:"friendAction.php",
+			data:{
+				userId:userId,
+				action:action
+			},
+			dataType:"json",
+			success:function(retData,textStatus){
+				//alert(retData);
+				if(retData.success){
+					alert("操作成功");
+					location.reload();
+				} else {
+					alert(retData.errInfo);
+				}
+			},
+			complete:function(){
+			},
+			error:function(XMLHttpRequest, textStatus, errorThrown){
+				alert(errorThrown);
+			}
+		});
+}
+</script>
 </body>
 </html>

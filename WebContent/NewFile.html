@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html data-app-domain="http://www.baidufe.com" data-static-domain="http://www.baidufe.com/fe">
+	<head>
+		<title>微信WeixinJSBridge API</title>
+		<meta name=Robots content="INDEX,FOLLOW">
+		<meta name=keywords content="Alien的笔记,WEB前端,FE,web前端开发,javascript,HTML,css,技术随笔">
+		<meta name=description content="baidufe，作者：赵先烈。专注web前端，包括html(5)、css(3)、javascript、php、smarty等。博客中会记录一些前端开发方面的小技巧，同时也会倒腾一些自己觉得有趣的前端技术。乐于总结，乐于分享。">
+		<meta name=apple-mobile-web-app-capable content=yes>
+		<meta name=apple-mobile-web-app-status-bar-style content=black>
+		<meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+		<meta name=format-detection content="telephone=no, email=no">
+		<link rel=apple-touch-icon-precomposed href="http://www.baidufe.com/fe/img/fe-128.png?v=33a88834">
+		<meta name=author content="http://www.baidufe.com">
+		<meta charset=utf-8>
+		<link rel="shortcut icon" href="http://www.baidufe.com/fe/base/static/img/favicon.ico?v=91d5254e" type=image/x-icon>
+		<link rel=author href=https://plus.google.com/116603019704204361428/posts>
+		<!--[if (lt IE 8.0)]><link rel=stylesheet href="http://www.baidufe.com/fe/base/static/css/base/base.css?v=00258e4e"><![endif]--><!--[if (!IE)|(gte IE 8.0)]><!-->
+		<link rel=stylesheet href="http://www.baidufe.com/fe/base/static/css/base/base_datauri.css?v=10e21e48">
+		<!--<![endif]-->
+		<link rel=stylesheet href="http://www.baidufe.com/fe/blog/static/css/webapp/base.css?v=c8c7597a">
+		<style type="text/css">
+			.mod-weixinjsapi {
+				padding: 10px
+			}
+			.mod-weixinjsapi .tips {
+				color: #b00;
+				font-size: 20px
+			}
+			.mod-weixinjsapi .x-desc {
+				color: #666;
+				font-size: 16px;
+				padding: 10px 0
+			}
+			#toggleMenuBtn, #toggleToolbar, #getNetType {
+				display: block;
+				height: 30px;
+				margin: 20px 0
+			}
+		</style>
+		<script type="text/javascript">
+			(function() {
+				var a = document.getElementsByTagName("html")[0];
+				window.Session = {
+					appDomain : a.getAttribute("data-app-domain") || "",
+					staticDomain : a.getAttribute("data-static-domain") || ""
+				}
+			})();
+			window.registNS = function(fullNS, isIgnorSelf) {
+				var reg = /^[_$a-z]+[_$a-z0-9]*/i;
+				var nsArray = fullNS.split(".");
+				var sEval = "";
+				var sNS = "";
+				var n = isIgnorSelf ? nsArray.length - 1 : nsArray.length;
+				for (var i = 0; i < n; i++) {
+					if (!reg.test(nsArray[i])) {
+						throw new Error("Invalid namespace:" + nsArray[i] + "");
+						return
+					}
+					if (i != 0) {
+						sNS += "."
+					}
+					sNS += nsArray[i];
+					sEval += "if(typeof(" + sNS + ")=='undefined') " + sNS + "=new Object();else " + sNS + ";"
+				}
+				if (sEval != "") {
+					return eval(sEval)
+				}
+				return {}
+			};
+			window.addEventMap = function(c, d, b, a) {
+				$.each(d, function(e, f) {
+					$(c).bind(f, function(h) {
+						var g = h.target || h.srcElement;
+						if (!g) {
+							return false
+						}
+						for (var j in b[f]) {
+							var i = b[f][j];
+							if ((g.className && $(g).hasClass(j))) {
+								i.call(g, h);
+								break
+							} else {
+								if ( ancestor = $(g).parents("."+j)[0]) {
+									i.call(ancestor, h);
+									break
+								}
+							}
+						}
+						if ( typeof a === "function") {
+							a.call(h)
+						}
+					})
+				})
+			};
+			var fixedTheElementOnScroll = function(c, a) {
+				if (!c) {
+					return false
+				}
+				a = parseInt(a, 10) || 0;
+				var b = function(g) {
+					var f = $(c).offset();
+					if ($(c).attr("data-fixed") != "1") {
+						$(c).attr({
+							"data-original-top" : f.top
+						})
+					}
+					var d = $(window).scrollTop() + a;
+					if ($(c).attr("data-original-top") <= d) {
+						if ($.browser.ie == 6) {
+							$(c).attr({
+								"data-fixed" : 1
+							});
+							$(c).css({
+								position : "absolute",
+								top : d - $(c).attr("data-original-top") + c.offsetHeight,
+								left : 0
+							})
+						} else {
+							if ($(c).attr("data-fixed") != "1") {
+								$(c).attr({
+									"data-fixed" : 1
+								});
+								$(c).css({
+									position : "fixed",
+									top : a,
+									left : f.left
+								})
+							}
+						}
+					} else {
+						$(c).attr("data-fixed", 0);
+						$(c).css({
+							position : "static"
+						})
+					}
+				};
+				b();
+				$(window).scroll(b)
+			};
+			String.prototype.trim = function() {
+				return this.replace(/^\s*|\s*$/g, "")
+			};
+			String.format = function(c, a) {
+				c = String(c);
+				var b = Array.prototype.slice.call(arguments, 1), d = Object.prototype.toString;
+				if (b.length) {
+					b = b.length == 1 ? (a !== null && (/\[object Array\]|\[object Object\]/.test(d.call(a))) ? a : b) : b;
+					return c.replace(/#\{(.+?)\}/g, function(e, g) {
+						var f = b[g];
+						if ("[object Function]" == d.call(f)) {
+							f = f(g)
+						}
+						return ("undefined" == typeof f ? "" : f)
+					})
+				}
+				return c
+			};
+			(function() {
+				var b = ("abbr,article,aside,audio,canvas,datalist,details,dialog,eventsource,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video").split(","), a = b.length;
+				while (a--) {
+					document.createElement(b[a])
+				}
+			})();
+		</script>
+	</head>
+	<body>
+		<section class=mod-page-body>
+			<div class="mod-page-main wordwrap clearfix">
+				<div class=mod-pageheader></div>
+				<div class=mod-pagecontent>
+					<div class=mod-weixinjsapi>
+						<h3 class=tips>Tips：本页面只在微信中打开有效！</h3>
+						<div class=x-desc>
+							微信客户端自带的Js Api：WeixinJSBridge，本例子主要演示隐藏或显示右上角按钮、隐藏或显示底部导航栏，获取网络状态
+						</div>
+						<div id=WeixinJsApi>
+							<input type=button id=toggleMenuBtn value="隐藏右上角按钮">
+							<input type=button id=toggleToolbar value="隐藏底部导航栏">
+							<input type=button id=getNetType value="获取网络状态">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<script>
+			var menuHidden = !1, toolbarHidden = !1, netType = {
+				"network_type:wifi" : "wifi网络",
+				"network_type:edge" : "非wifi,包含3G/2G",
+				"network_type:fail" : "网络断开连接",
+				"network_type:wwan" : "2g或者3g"
+			};
+			document.addEventListener("WeixinJSBridgeReady", function() {
+				document.getElementById("toggleMenuBtn").addEventListener("click", function() {
+					menuHidden ? (WeixinJSBridge.call("showOptionMenu"), menuHidden = !1, this.value = "隐藏右上角按钮") : (WeixinJSBridge.call("hideOptionMenu"), menuHidden = !0, this.value = "显示右上角按钮")
+				}, !1), document.getElementById("toggleToolbar").addEventListener("click", function() {
+					toolbarHidden ? (WeixinJSBridge.call("showToolbar"), toolbarHidden = !1, this.value = "隐藏底部导航栏") : (WeixinJSBridge.call("hideToolbar"), toolbarHidden = !0, this.value = "显示底部导航栏")
+				}, !1), document.getElementById("getNetType").addEventListener("click", function() {
+					WeixinJSBridge.invoke("getNetworkType", {}, function(e) {
+						alert(netType[e.err_msg])
+					})
+				}, !1)
+			});
+		</script>
+		<div class=mod-footer>
+			<div class=clearfix></div>
+			<div class=footer-box>
+				Copyright &copy;<a href="http://www.baidufe.com/about" target=_blank>Alien</a>&nbsp;All Rights Reserved.&nbsp;<a href="http://www.miitbeian.gov.cn/" target=_blank class=x-beian>京ICP备14006329号</a>
+			</div>
+		</div>
+		<div class=hide>
+			<script>
+				(function() {
+					var _bdhmProtocol = "https:" == document.location.protocol ? " https://" : " http://";
+					document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F17b02fba4e62901b4289eef4c2243123' type='text/javascript'%3E%3C/script%3E"))
+				})();
+			</script>
+		</div>
+</body>
+</html>
