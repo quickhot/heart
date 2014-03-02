@@ -278,6 +278,24 @@ class Users extends DataConnector {
 		}
 		return $this->makeOutPut($retData);
 	}
+    
+    public function getAllQuestionList()
+    {
+        $retData=array();
+        $questionsList = "SELECT * FROM questions";
+        if ($resQuestionsList=mysql_query($questionsList,$this->link_identifier)) {
+            $retData['success']=1;
+            while ($rowQuestionList=mysql_fetch_array($resQuestionsList,MYSQL_ASSOC)) {
+                $retData['questionsList'][]=$rowQuestionList;
+            }
+        } else {
+            $retData['success']=0;
+            $retData['errNo']=3;
+            $retData['errInfo']=$this->errInfo['3'];
+        }
+        return $this->makeOutPut($retData);
+        
+    }
 }
 
 ?>

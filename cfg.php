@@ -1,5 +1,5 @@
 <?php
-define('WEBROOT', 'D:/ec_workspace/heart/');
+define('WEBROOT', '/Users/wangjin/git/heart/');
 include_once WEBROOT.'libs/smarty/Smarty.class.php';
 $smarty = new Smarty();
 
