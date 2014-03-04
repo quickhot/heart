@@ -9,16 +9,21 @@ session_start();
 $userId = $_SESSION['userId'];
 if ($userId) { //登录成功，且具有userId
 	$user = new Users();
-	
-	
-	
 	include_once 'cfg.php';
-	
-	//$smarty->assign('userId',$userId);
-	$smarty->assign('friends',$friends['friendList']);
-	$smarty->assign('comers',$comers['comerList']);
-	$smarty->assign('reachers',$reachers['reacherList']);
-	$smarty->display('friends.html');
+	$profile = $user->getUserDetailById($userId);
+	$messages = $user->getUserMessageById($userId);
+
+	if ($profile['success'] && $messages['success']) {
+		$userProfile = $profile['userDetail'];
+		$userMessage = $messages['userMessage'];
+		var_dump($userMessage);
+		$smarty->assign('message',$userMessage);
+		$smarty->assign('profile',$userProfile);
+		$smarty->display('profile.html');
+	} else {
+		echo $profile['errInfo'];
+		echo $messages['errInfo'];
+	}
 	
 }
 ?>

@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2014-02-27 15:46:23
+<?php /* Smarty version Smarty-3.1.16, created on 2014-03-03 18:39:33
          compiled from "D:\ec_workspace\heart\smartyFiles\templates\goQuestion.html" */ ?>
-<?php /*%%SmartyHeaderCode:13840530eed4fae0957-80149973%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2754953145be5415485-10941860%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,7 +11,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '13840530eed4fae0957-80149973',
+  'nocache_hash' => '2754953145be5415485-10941860',
   'function' => 
   array (
   ),
@@ -25,9 +25,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_530eed4fb56cb3_41495175',
+  'unifunc' => 'content_53145be54b3c19_59824456',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_530eed4fb56cb3_41495175')) {function content_530eed4fb56cb3_41495175($_smarty_tpl) {?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?php if ($_valid && !is_callable('content_53145be54b3c19_59824456')) {function content_53145be54b3c19_59824456($_smarty_tpl) {?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

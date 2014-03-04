@@ -6,8 +6,9 @@
         <title>New Web Project</title>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ajaxfileupload.js"></script>
-        <script type="text/javascript" language="JavaScript">
+        <script type="text/javascript">
         	function doUpload(){
+
         		var questionId;
         		var questionIds=document.getElementsByName("selQues");
         		
@@ -19,6 +20,12 @@
         			}
         		//alert(questionId);
         		var selAnswer=$('#sel_'+questionId+' option:selected') .val();
+        		
+        		if (!(questionId && selAnswer)){
+        			alert("必须选择一个问题和答案");
+        			return false;
+        			exit();
+        		}
         		
         		$.ajaxFileUpload
 				(
@@ -32,15 +39,12 @@
 							selAnswer:selAnswer},
 						success: function (data, status)
 						{
-							if(typeof(data.error) != 'undefined')
+							if(data.success == 1)
 							{
-								if(data.error != '')
-								{
-									alert(data.error);
-								}else
-								{
-									alert(data.msg);
-								}
+								alert("提交成功");
+								location.reload();
+							} else {
+								alert(data.errInfo);
 							}
 						},
 						error: function (data, status, e)
@@ -51,6 +55,32 @@
 				);
 				return false;
         	}
+        	
+        	function doDelete (questionId) {
+			  $.ajax({
+					type:"POST",
+					url:"delUserQues.php",
+					data:{
+						questionId:questionId
+					},
+					dataType:"json",
+					success:function(retData,textStatus){
+						//alert(retData);
+						if(retData.success){
+							alert("删除问题成功");
+							location.reload();
+						} else {
+							alert(retData.errInfo);
+						}
+					},
+					complete:function(){
+
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				});
+			}
         </script>
     </head>
     <body>
@@ -80,37 +110,68 @@
        			<{/section}>
        			<tr>
        				<td colspan="4">
-       					<!-- <form name="form" action="" method="post" enctype="multipart/form-data"> -->
-       					添加图片：<input type="file" id="questionPicture" name="questionPicture" onchange="doUpload();"/><input type="button" value="上传" onclick="javascript:doUpload();"/>
-       					<!-- </form> -->
+       					添加图片：<input type="file" id="questionPicture" name="questionPicture[]" onchange="javascript:doUpload();"/><input type="button" value="上传" onclick="javascript:doUpload();"/>
        				</td>
        			</tr>
        			<tr>
-       				<td colspan="4"><input type="button" value="添加到我的问题库" /></td>
+       				<td colspan="4"><input type="button" value="添加到我的问题库" onclick="javascript:doUpload();"/></td>
        			</tr>
        		</table>
        	</div>
        	<div id="myquestion">
-       		<table>
+       		<table border="1">
        			<tr>
        				<td>编号</td>
        				<td>图片</td>
        				<td>问题</td>
        				<td>答案</td>
        				<td>删除</td>
-       			</tr>
+       			</tr> 
+       			<{section name=myQuestion loop=$myQuestionsList}>
        			<tr>
-       				<td>1</td>
-       				<td><img src=""></td>
-       				<td>11?</td>
-       				<td>a<br>
-       					b<br>
-       					c<br>
-       					d<br>
+       				<td><{$myQuestionsList[myQuestion].questionId}></td>
+       				<td><img src="<{$myQuestionsList[myQuestion].questionPicture}>" width="150" height="150"></td>
+       				<td><{$myQuestionsList[myQuestion].question}></td>
+       				<td>
+       					<{if $myQuestionsList[myQuestion].answerNo eq "A"}>
+       					<font color="red">
+       						<{$myQuestionsList[myQuestion].A}>
+       					</font>
+       					<{else}>
+       						<{$myQuestionsList[myQuestion].A}>
+       					<{/if}><br>
+       					
+       					<{if $myQuestionsList[myQuestion].answerNo eq "B"}>
+       					<font color="red">
+       						<{$myQuestionsList[myQuestion].B}>
+       					</font>
+       					<{else}>
+       						<{$myQuestionsList[myQuestion].B}>
+       					<{/if}><br>
+       					
+       					<{if $myQuestionsList[myQuestion].answerNo eq "C"}>
+       					<font color="red">
+       						<{$myQuestionsList[myQuestion].C}>
+       					</font>
+       					<{else}>
+       						<{$myQuestionsList[myQuestion].C}>
+       					<{/if}><br>
+       					
+       					<{if $myQuestionsList[myQuestion].answerNo eq "D"}>
+       					<font color="red">
+       						<{$myQuestionsList[myQuestion].D}>
+       					</font>
+       					<{else}>
+       						<{$myQuestionsList[myQuestion].D}>
+       					<{/if}><br>
        				</td>
-       				<td>删除</td>
+       				<td><a href="javascript:void(0);" onclick="javascript:doDelete(<{$myQuestionsList[myQuestion].questionId}>)">删除</a></td>
        			</tr>
+       			<{/section}>
        		</table>
+       	</div>
+       	<div id="footer">
+       		<a href="index.php">返回</a>
        	</div>
     </body>
 </html>

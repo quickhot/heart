@@ -16,14 +16,21 @@ if ($userId) { //登录成功，且具有userId
         $smarty->assign('questionsList',$questionsList);
         $smarty->assign('comers',$comers['comerList']);
         $smarty->assign('reachers',$reachers['reacherList']);
-        $smarty->display('quesSet.html');
+
     } else {
         echo "获取问题列表失败".$quesList['errInfo'];
     }
-    
-
-
-    
-    
+	
+    $myQuesList = $user->getMyQuesList($userId);
+	if ($myQuesList['success']==1) {
+		$myQuestionList = $myQuesList['myQuesList'];
+		//var_dump($myQuesList);
+		$smarty->assign('myQuestionsList',$myQuestionList);
+	} else {
+		echo "获取用户列表失败".$myQuesList['errInfo'];
+	}
+	if ($myQuesList['success'] && $quesList['success']) {
+		$smarty->display('quesSet.html');
+	}
 }
 ?>

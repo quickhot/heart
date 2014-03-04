@@ -6,6 +6,11 @@ use DataControl\Connector\DataConnector;
 
 class Users extends DataConnector {
 
+	public function getlinkIdentifier()
+	{
+		return $this->link_identifier;
+	}
+	
 	/**
 	 * 用户登录
 	 * @param unknown $loginName
@@ -203,6 +208,23 @@ class Users extends DataConnector {
 		}
 		return $this->makeOutPut($retData);
 	}
+
+	public function getUserMessageById($userId){
+		$retData = array();
+		$qryUserMessage = "SELECT * FROM messages WHERE userId=$userId";
+		if ($resUserMessage=mysql_query($qryUserMessage,$this->link_identifier)) {
+			$retData['success']=1;
+			while ($rowUserMessage=mysql_fetch_array($resUserMessage,MYSQL_ASSOC)) {
+				$retData['userMessage'][]=$rowUserMessage;
+			}
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=21;
+			$retData['errInfo']=$this->errorInfo['21'];
+		}
+		return $this->makeOutPut($retData);
+	}	
+	
 	
 	public function delReacher($userId,$doUserId)
 	{
@@ -296,6 +318,22 @@ class Users extends DataConnector {
         return $this->makeOutPut($retData);
         
     }
+	
+	public function getMyQuesList($userId){
+		$retData=array();
+		$qryMyQuesList = "SELECT * FROM v_userAnswer WHERE userId=$userId";
+		if ($resMyQuesList = mysql_query($qryMyQuesList,$this->link_identifier)) {
+			while ($rowMyQuesList = mysql_fetch_array($resMyQuesList,MYSQL_ASSOC)) {
+				$retData['myQuesList'][]=$rowMyQuesList;
+			}
+			$retData['success']=1;
+		} else {
+			$retData['success']=0;
+			$retData['errNo']=3;
+			$retData['errInfo']=$this->errorInfo['3'];
+		}
+		return $this->makeOutPut($retData);
+	}
 }
 
 ?>

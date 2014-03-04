@@ -6,12 +6,18 @@
 	include_once './libs/upload.php';
 	$user = new Users();
 	$link = $user->link_identifier;
-    $questionId = $_POST['questionId'];
-    $selAnswer = $_POST['selAnswer'];
+    $city = $_POST['city'];
+    $password = $_POST['password'];
+	$sqlPass='';
+	if (!password) {
+		$sqlPass= ",`loginPass`=PASSWORD('$password')";
+	}
+	$nickName = $_POST['nickName'];
+	
 	$up = new upload('jpg|png',2048);
 	$saveDir = "/media/source/";
 	$up->set_dir(dirname(__FILE__).$saveDir);
-	$up->field = "questionPicture";
+	$up->field = "picture";
 	$fs = $up->execute();
 	$flag = $fs[0]["flag"];
 	session_start();
@@ -19,16 +25,16 @@
 	$retData = array();
 	if ($flag==1) {//上传成功
 		$fileName = $fs[0]["name"];
-
-		$insUserQues = "INSERT INTO userAnswer(questionId,answerNo,userId,questionPicture) VALUES($questionId,'$selAnswer',$userId,'$saveDir$fileName');";
-		$res = mysql_query($insUserQues,$link);
+		$updUserInfo = "UPDATE userInfo SET nickName='$nickName',city='$city',picture='$saveDir$fileName'".$sqlPass." WHERE id=$userId";
+		$res = mysql_query($updUserInfo,$link);
 		$err = mysql_error();
 		if ($res) {
 			$retData['success']=1;
+			$_SESSION['userDetail']['picture']=$saveDir.$fileName;
 		} else {
 			$retData['success']=0;
-			$retData['errNo']=4;
-			$retData['errInfo']=$user->errorInfo['4']."::".mysql_error();
+			$retData['errNo']=20;
+			$retData['errInfo']=$user->errorInfo['20']."::".mysql_error();
 		}
 	} else {
 		$retData['success']=0;

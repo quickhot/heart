@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>信息修改</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+	function modifyUser (userId) {
+	    alert(userId);
+		var city=$('#city option:selected').val();
+		alert(city);
+		var password = $('#password').val();
+		alert(password);
+		var nickName = $('#nickName').val();
+		alert(nickName);
+		
+		$.ajaxFileUpload
+		(
+			{
+				url:'doModifyProfile.php',
+				secureuri:false,
+				fileElementId:'picture',
+				dataType: 'json',
+				data:{
+					city:city,
+					password:password,
+					nickName:nickName
+					},
+				success: function (data, status)
+				{
+					if(data.success == 1)
+					{
+						alert("提交成功");
+						location.reload();
+					} else {
+						alert(data.errInfo);
+					}
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		);
+		return false;
+	}
+</script>
+</head>
+<body>
+<div id="message">
+	<table border="1">
+		<tr>
+			<td>标题</td>
+			<td>内容</td>
+		</tr>
+		<{section name=mess loop=$message}>
+		<tr>
+			<td><{$message[mess].title}></td>
+			<td><{$message[mess].content}></td>
+		</tr>
+		<{/section}>
+	</table>
+</div>
+<br />
+<br />
+<div id="profile">
+	<span>账号：<{$profile.loginName}></span><br />
+	<span>密码：<input type="password" id="password" value="" />留空不修改</span><br />
+	<span>昵称：<input type="text" id="nickName" value="<{$profile.nickName}>" /></span><br />
+	<span>等级：</span><{$profile.rank}><br />
+	<span>鲜花：<{$profile.flowers}></span><br />
+	<span>头像：
+		<img src="<{$profile.picture}>"><br />
+		<input type="file" id="picture" name="picture[]" /></span><br />
+	<span>城市：</span><select id="city">
+		<option value="010" <{if $profile.city eq "010"}> selected="selected" <{/if}> >北京</option>
+		<option value="022" <{if $profile.city eq "022"}> selected="selected" <{/if}> >天津</option>
+		<option value="021" <{if $profile.city eq "021"}> selected="selected" <{/if}> >上海</option>
+	</select><br />
+	<span>经验：<{$profile.score}></span><br />
+	<a href="javascript:void(0);" onclick="modifyUser(<{$profile.id}>);">修改</a>
+</div>
+<div id="footer">
+	<a href="index.php">返回</a>
+</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <?php
-define('WEBROOT', '/Users/wangjin/git/heart/');
+//change local dir
+define('WEBROOT', $_SERVER['DOCUMENT_ROOT'].'/');
 include_once WEBROOT.'libs/smarty/Smarty.class.php';
 $smarty = new Smarty();
 

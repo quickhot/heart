@@ -12,7 +12,7 @@ if ($userId) { //登录成功，且具有userId
 	$userDetail = $_SESSION['userDetail'];
 	$city = $userDetail['city'];
 	$user = new Users();
-	
+	//var_dump($_SESSION);
 	$showListUser = $user->getRecommendUsersByCity($city);//TODO: 翻页
 	$recommendList = $showListUser['userList']; 
 	//var_dump($showListUser);

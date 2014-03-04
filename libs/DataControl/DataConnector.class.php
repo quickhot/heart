@@ -2,9 +2,9 @@
 
 namespace DataControl\Connector;
 use DataControl\General\General;
-
+//TODO: change database connection
 class DataConnector extends General{
-	private $DB_HOST = '127.0.0.1';
+	private $DB_HOST = '192.168.2.250';
 	private $DB_USER = 'root';
 	private $DB_PASS = '123456';
 	private $DB_NAME = 'heart';
